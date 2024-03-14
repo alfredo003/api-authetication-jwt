@@ -1,8 +1,9 @@
 import {Request,Response} from 'express'
 import {userRepository} from '../repositories/userRepository'
-import { BadRequestError, UnauthorizedError } from '../helpers/api-erros';
+import { BadRequestError } from '../helpers/api-erros';
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+
 
 class UserController
 {
@@ -57,12 +58,11 @@ class UserController
 
     async getProfile(req:Request,res:Response)
     {
-        const {authorization} = req.headers
-        if(!authorization){
-            throw new UnauthorizedError('not autorization')
-        }
-
-        console.log(authorization)
+       return res.json(req.user)
+    }
+    async home(req:Request,res:Response)
+    {
+       return res.json({message:"Hello!"})
     }
 }
 
